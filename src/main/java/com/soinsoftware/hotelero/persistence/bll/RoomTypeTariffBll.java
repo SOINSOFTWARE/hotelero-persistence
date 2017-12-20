@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-
 import com.soinsoftware.hotelero.persistence.dao.RoomTypeTariffDao;
 import com.soinsoftware.hotelero.persistence.entity.RoomType;
 import com.soinsoftware.hotelero.persistence.entity.RoomTypeTariff;
@@ -17,9 +15,9 @@ import com.soinsoftware.hotelero.persistence.entity.Tariff;
  */
 public class RoomTypeTariffBll extends AbstractBll<RoomType, Integer> {
 
-	public RoomTypeTariffBll(final EntityManager manager) throws IOException {
-		super(manager);
-		dao = new RoomTypeTariffDao(manager);
+	public RoomTypeTariffBll() throws IOException {
+		super();
+		dao = new RoomTypeTariffDao();
 	}
 
 	public List<RoomTypeTariff> selectDateRange(final Date fromDate, final Date toDate) {

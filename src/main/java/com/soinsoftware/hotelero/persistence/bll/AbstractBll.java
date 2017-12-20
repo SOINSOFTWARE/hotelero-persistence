@@ -1,9 +1,6 @@
 package com.soinsoftware.hotelero.persistence.bll;
 
-import java.io.IOException;
 import java.util.List;
-
-import javax.persistence.EntityManager;
 
 import com.soinsoftware.hotelero.persistence.dao.DataAccessibleObject;
 
@@ -16,10 +13,6 @@ public abstract class AbstractBll<T, P> {
 
 	@SuppressWarnings("rawtypes")
 	protected DataAccessibleObject dao;
-
-	public AbstractBll(final EntityManager manager) throws IOException {
-		super();
-	}
 
 	public List<T> selectAll() {
 		return dao.selectAll();
@@ -35,6 +28,10 @@ public abstract class AbstractBll<T, P> {
 
 	public void save(final T entity) {
 		dao.persist(entity);
+	}
+
+	public void delete(final T entity) {
+		dao.delete(entity);
 	}
 
 	public void closeDbConnection() {

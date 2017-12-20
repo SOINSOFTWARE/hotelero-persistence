@@ -1,15 +1,15 @@
 package com.soinsoftware.hotelero.persistence.dao;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import javax.persistence.EntityManager;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.soinsoftware.hotelero.persistence.entity.RoomType;
 import com.soinsoftware.hotelero.persistence.entity.RoomTypeTariff;
@@ -19,11 +19,12 @@ import com.soinsoftware.hotelero.persistence.entity.Tariff;
  * @author Carlos Rodriguez
  * @since 1.0.0
  */
+@Transactional
 @SuppressWarnings("unchecked")
 public class RoomTypeTariffDao extends AbstractDataAccessibleObject<RoomTypeTariff, Integer> {
 
-	public RoomTypeTariffDao(final EntityManager manager) {
-		super(manager);
+	public RoomTypeTariffDao() throws IOException {
+		super();
 	}
 
 	@Override
@@ -105,13 +106,5 @@ public class RoomTypeTariffDao extends AbstractDataAccessibleObject<RoomTypeTari
 		final Criterion criterion = Restrictions.and(buildPredicates(predicates));
 		criteria.add(criterion);
 		return (List<RoomTypeTariff>) criteria.list();
-	}
-
-	private Criterion[] buildPredicates(final List<Criterion> predicates) {
-		final Criterion[] predicateArray = new Criterion[predicates.size()];
-		for (int i = 0; i < predicates.size(); i++) {
-			predicateArray[i] = predicates.get(i);
-		}
-		return predicateArray;
 	}
 }

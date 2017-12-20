@@ -48,5 +48,5 @@ public class RoomTypeTariff extends CommonData {
 	
 	@ManyToOne
 	@JoinColumn(name = "idtariff")
-	private RoomType tariff;
+	private Tariff tariff;
 }

@@ -1,11 +1,17 @@
 package com.soinsoftware.hotelero.persistence.dao;
 
+import java.io.IOException;
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
+
+import com.soinsoftware.hotelero.persistence.manager.AbstractManagerFactory;
+import com.soinsoftware.hotelero.persistence.manager.HoteleroManagerFactory;
 
 /**
  * This class helps to DAO objects to connect to correct database using the
@@ -26,18 +32,20 @@ public abstract class AbstractDataAccessibleObject<T, P> implements DataAccessib
 	/**
 	 * Default constructor that must be used for all DAO implementations.
 	 * 
-	 * @param manager
-	 *            {@link EntityManager} with correct database information.
+	 * @throws IOException
 	 */
-	public AbstractDataAccessibleObject(final EntityManager manager) {
+	public AbstractDataAccessibleObject() throws IOException {
 		super();
-		this.manager = manager;
+		final AbstractManagerFactory factory = HoteleroManagerFactory.getInstance();
+		this.manager = factory.createEntityManager();
 	}
 
 	@Override
 	public void persist(T record) {
 		try {
-			manager.getTransaction().begin();
+			if (!manager.getTransaction().isActive()) {
+				manager.getTransaction().begin();
+			}
 			manager.persist(record);
 		} finally {
 			manager.getTransaction().commit();
@@ -81,5 +89,13 @@ public abstract class AbstractDataAccessibleObject<T, P> implements DataAccessib
 		final Criterion criterion = Restrictions.eq("enabled", enabled);
 		criteria.add(criterion);
 		return criteria;
+	}
+	
+	protected Criterion[] buildPredicates(final List<Criterion> predicates) {
+		final Criterion[] predicateArray = new Criterion[predicates.size()];
+		for (int i = 0; i < predicates.size(); i++) {
+			predicateArray[i] = predicates.get(i);
+		}
+		return predicateArray;
 	}
 }

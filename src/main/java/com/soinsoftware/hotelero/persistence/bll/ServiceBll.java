@@ -3,8 +3,6 @@ package com.soinsoftware.hotelero.persistence.bll;
 import java.io.IOException;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-
 import com.soinsoftware.hotelero.persistence.dao.ServiceDao;
 import com.soinsoftware.hotelero.persistence.entity.Service;
 import com.soinsoftware.hotelero.persistence.entity.ServiceType;
@@ -15,9 +13,9 @@ import com.soinsoftware.hotelero.persistence.entity.ServiceType;
  */
 public class ServiceBll extends AbstractBll<Service, Integer> {
 
-	public ServiceBll(final EntityManager manager) throws IOException {
-		super(manager);
-		dao = new ServiceDao(manager);
+	public ServiceBll() throws IOException {
+		super();
+		dao = new ServiceDao();
 	}
 
 	public Service select(final String name) {

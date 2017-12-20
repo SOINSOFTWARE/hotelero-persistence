@@ -1,11 +1,11 @@
 package com.soinsoftware.hotelero.persistence.dao;
 
+import java.io.IOException;
 import java.util.List;
-
-import javax.persistence.EntityManager;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.soinsoftware.hotelero.persistence.entity.RoomStatus;
 
@@ -13,11 +13,12 @@ import com.soinsoftware.hotelero.persistence.entity.RoomStatus;
  * @author Carlos Rodriguez
  * @since 1.0.0
  */
+@Transactional
 @SuppressWarnings("unchecked")
 public class RoomStatusDao extends AbstractDataAccessibleObject<RoomStatus, Integer> {
 
-	public RoomStatusDao(final EntityManager manager) {
-		super(manager);
+	public RoomStatusDao() throws IOException {
+		super();
 	}
 
 	@Override

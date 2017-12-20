@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Transient;
 
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.OptimisticLockType;
 import org.hibernate.annotations.OptimisticLocking;
 import org.hibernate.annotations.SelectBeforeUpdate;
@@ -28,6 +29,7 @@ public class ServiceType extends CommonData implements Comparable<ServiceType> {
 
 	private static final long serialVersionUID = 7265381353242674545L;
 
+	@NaturalId
 	private String name;
 
 	@Transient

@@ -2,15 +2,11 @@ package com.soinsoftware.hotelero.test.persistence.bll;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
-
 import com.soinsoftware.hotelero.persistence.bll.AbstractBll;
 import com.soinsoftware.hotelero.persistence.bll.ServiceBll;
 import com.soinsoftware.hotelero.persistence.entity.Service;
 import com.soinsoftware.hotelero.persistence.manager.HoteleroManagerFactory;
-import com.soinsoftware.hotelero.persistence.manager.IEntityManagerFactory;
 
-import junit.framework.Assert;
 import junit.framework.TestCase;
 
 @SuppressWarnings(value = { "rawtypes", "unchecked" })
@@ -20,9 +16,8 @@ public class ServiceTest extends TestCase {
 
 	protected void setUp() throws Exception {
 		super.setUp();
-		final IEntityManagerFactory emf = HoteleroManagerFactory.getInstance();
-		final EntityManager manager = emf.createEntityManager();
-		bll = new ServiceBll(manager);
+		HoteleroManagerFactory.getInstance();
+		bll = new ServiceBll();
 	}
 
 	protected void tearDown() throws Exception {
@@ -32,18 +27,23 @@ public class ServiceTest extends TestCase {
 
 	public void testSelectAll() {
 		final List<Service> entities = bll.selectAll();
-		Assert.assertNotNull(entities);
-		Assert.assertNotSame(entities.size(), 0);
+		assertNotNull(entities);
+		assertNotSame(entities.size(), 0);
 	}
 
 	public void testSelectEnabled() {
 		final List<Service> entities = bll.selectAll(true);
-		Assert.assertNotNull(entities);
-		Assert.assertNotSame(entities.size(), 0);
+		assertNotNull(entities);
+		assertNotSame(entities.size(), 0);
+	}
+
+	public void testSelectByNameExists() {
+		final Service entity = ((ServiceBll) bll).select("TEST");
+		assertNotNull(entity);
 	}
 
 	public void testSelectByNameNotExists() {
 		final Service entity = ((ServiceBll) bll).select("not existing");
-		Assert.assertNull(entity);
+		assertNull(entity);
 	}
 }

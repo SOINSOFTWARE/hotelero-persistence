@@ -3,21 +3,21 @@ package com.soinsoftware.hotelero.test.persistence.bll;
 import java.util.List;
 
 import com.soinsoftware.hotelero.persistence.bll.AbstractBll;
-import com.soinsoftware.hotelero.persistence.bll.RoomStatusBll;
-import com.soinsoftware.hotelero.persistence.entity.RoomStatus;
+import com.soinsoftware.hotelero.persistence.bll.UserBll;
+import com.soinsoftware.hotelero.persistence.entity.User;
 import com.soinsoftware.hotelero.persistence.manager.HoteleroManagerFactory;
 
 import junit.framework.TestCase;
 
 @SuppressWarnings(value = { "rawtypes", "unchecked" })
-public class RoomStatusTest extends TestCase {
+public class UserTest extends TestCase {
 
 	private AbstractBll bll;
 
 	protected void setUp() throws Exception {
 		super.setUp();
 		HoteleroManagerFactory.getInstance();
-		bll = new RoomStatusBll();
+		bll = new UserBll();
 	}
 
 	protected void tearDown() throws Exception {
@@ -26,24 +26,34 @@ public class RoomStatusTest extends TestCase {
 	}
 
 	public void testSelectAll() {
-		final List<RoomStatus> entities = bll.selectAll();
+		final List<User> entities = bll.selectAll();
 		assertNotNull(entities);
 		assertNotSame(entities.size(), 0);
 	}
 
 	public void testSelectEnabled() {
-		final List<RoomStatus> entities = bll.selectAll(true);
+		final List<User> entities = bll.selectAll(true);
 		assertNotNull(entities);
 		assertNotSame(entities.size(), 0);
 	}
 
-	public void testSelectByCodeNotExists() {
-		final RoomStatus entity = ((RoomStatusBll) bll).select("No Disponible");
+	public void testSelectByIdentificationExists() {
+		final User entity = ((UserBll) bll).select(987456321);
+		assertNotNull(entity);
+	}
+
+	public void testSelectByIdentificationNotExists() {
+		final User entity = ((UserBll) bll).select(0);
 		assertNull(entity);
 	}
 
-	public void testSelectByCodeExists() {
-		final RoomStatus entity = ((RoomStatusBll) bll).select("Disponible");
+	public void testSelectByLoginExists() {
+		final User entity = ((UserBll) bll).select("admin", "abc123");
 		assertNotNull(entity);
+	}
+
+	public void testSelectByLoginNotExists() {
+		final User entity = ((UserBll) bll).select("admin", "xxxxxx");
+		assertNull(entity);
 	}
 }

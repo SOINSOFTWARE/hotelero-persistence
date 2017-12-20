@@ -4,17 +4,13 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-
 import com.soinsoftware.hotelero.persistence.bll.AbstractBll;
 import com.soinsoftware.hotelero.persistence.bll.RoomTypeTariffBll;
 import com.soinsoftware.hotelero.persistence.entity.RoomType;
 import com.soinsoftware.hotelero.persistence.entity.RoomTypeTariff;
 import com.soinsoftware.hotelero.persistence.entity.Tariff;
 import com.soinsoftware.hotelero.persistence.manager.HoteleroManagerFactory;
-import com.soinsoftware.hotelero.persistence.manager.IEntityManagerFactory;
 
-import junit.framework.Assert;
 import junit.framework.TestCase;
 
 @SuppressWarnings(value = { "rawtypes", "unchecked" })
@@ -24,10 +20,8 @@ public class RoomTypeTariffTest extends TestCase {
 
 	protected void setUp() throws Exception {
 		super.setUp();
-		final IEntityManagerFactory emf = HoteleroManagerFactory.getInstance();
-		final EntityManager manager = emf.createEntityManager();
-		bll = new RoomTypeTariffBll(manager);
-		
+		HoteleroManagerFactory.getInstance();
+		bll = new RoomTypeTariffBll();
 	}
 
 	protected void tearDown() throws Exception {
@@ -37,14 +31,14 @@ public class RoomTypeTariffTest extends TestCase {
 
 	public void testSelectAll() {
 		final List<RoomTypeTariff> entities = bll.selectAll();
-		Assert.assertNotNull(entities);
-		Assert.assertNotSame(entities.size(), 0);
+		assertNotNull(entities);
+		assertNotSame(entities.size(), 0);
 	}
 
 	public void testSelectEnabled() {
 		final List<RoomTypeTariff> entities = bll.selectAll(true);
-		Assert.assertNotNull(entities);
-		Assert.assertNotSame(entities.size(), 0);
+		assertNotNull(entities);
+		assertNotSame(entities.size(), 0);
 
 	}
 
@@ -57,30 +51,30 @@ public class RoomTypeTariffTest extends TestCase {
 		calendar.set(Calendar.DATE, 31);
 		final Date toDate = calendar.getTime();
 		final List<RoomTypeTariff> entities = ((RoomTypeTariffBll) bll).selectDateRange(fromDate, toDate);
-		Assert.assertNotNull(entities);
-		Assert.assertNotSame(entities.size(), 0);
+		assertNotNull(entities);
+		assertNotSame(entities.size(), 0);
 
 	}
 
 	public void selectDefaultTariff() {
-		final boolean defaultTariff = true;
+		final boolean defaultTariff = false;
 		final List<RoomTypeTariff> entities = ((RoomTypeTariffBll) bll).selectDefaultTariff(defaultTariff);
-		Assert.assertNotNull(entities);
-		Assert.assertNotSame(entities.size(), 0);
+		assertNotNull(entities);
+		assertNotSame(entities.size(), 0);
 	}
 
 	public void testSelectRoomType() {
 		final int idRoomType = 1;
 		final List<RoomTypeTariff> entities = ((RoomTypeTariffBll) bll).selectRoomType(idRoomType);
-		Assert.assertNotNull(entities);
-		Assert.assertNotSame(entities.size(), 0);
+		assertNotNull(entities);
+		assertNotSame(entities.size(), 0);
 	}
 
 	public void testSelectTariff() {
 		final int idTariff = 1;
 		final List<RoomTypeTariff> entities = ((RoomTypeTariffBll) bll).selectTariff(idTariff);
-		Assert.assertNotNull(entities);
-		Assert.assertNotSame(entities.size(), 0);
+		assertNotNull(entities);
+		assertNotSame(entities.size(), 0);
 	}
 
 	public void testSelect() {
@@ -91,29 +85,14 @@ public class RoomTypeTariffTest extends TestCase {
 		final Date fromDate = calendar.getTime();
 		calendar.set(Calendar.DATE, 31);
 		final Date toDate = calendar.getTime();
-		final Boolean defaultTariff = true;
+		final Boolean defaultTariff = false;
 		final RoomType roomType = new RoomType();
 		roomType.setId(1);
 		final Tariff tariff = new Tariff();
 		tariff.setId(1);
 		final List<RoomTypeTariff> entities = ((RoomTypeTariffBll) bll).select(fromDate, toDate, defaultTariff,
 				roomType, tariff);
-		Assert.assertNotNull(entities);
-		Assert.assertNotSame(entities.size(), 0);
-	}
-	
-	private void createNewOne() {
-		final Calendar calendar = Calendar.getInstance();
-		calendar.set(Calendar.YEAR, 2017);
-		calendar.set(Calendar.MONTH, 4);
-		calendar.set(Calendar.DATE, 2);
-		final RoomTypeTariff newOne = new RoomTypeTariff();
-		newOne.setFromDate(calendar.getTime());
-		calendar.set(Calendar.DATE, 30);
-		newOne.setToDate(calendar.getTime());
-		newOne.setDefaultTariff(false);
-		final RoomType roomType = new RoomType();
-		roomType.setId(1);
-		newOne.setRoomType(roomType);
+		assertNotNull(entities);
+		assertNotSame(entities.size(), 0);
 	}
 }

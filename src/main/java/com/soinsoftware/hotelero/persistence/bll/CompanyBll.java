@@ -2,8 +2,6 @@ package com.soinsoftware.hotelero.persistence.bll;
 
 import java.io.IOException;
 
-import javax.persistence.EntityManager;
-
 import com.soinsoftware.hotelero.persistence.dao.CompanyDao;
 import com.soinsoftware.hotelero.persistence.entity.Company;
 
@@ -13,9 +11,9 @@ import com.soinsoftware.hotelero.persistence.entity.Company;
  */
 public class CompanyBll extends AbstractBll<Company, Integer> {
 
-	public CompanyBll(final EntityManager manager) throws IOException {
-		super(manager);
-		dao = new CompanyDao(manager);
+	public CompanyBll() throws IOException {
+		super();
+		dao = new CompanyDao();
 	}
 
 	public Company select(final String name) {

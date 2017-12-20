@@ -2,8 +2,6 @@ package com.soinsoftware.hotelero.persistence.bll;
 
 import java.io.IOException;
 
-import javax.persistence.EntityManager;
-
 import com.soinsoftware.hotelero.persistence.dao.RoomTypeDao;
 import com.soinsoftware.hotelero.persistence.entity.RoomType;
 
@@ -13,9 +11,9 @@ import com.soinsoftware.hotelero.persistence.entity.RoomType;
  */
 public class RoomTypeBll extends AbstractBll<RoomType, Integer> {
 
-	public RoomTypeBll(final EntityManager manager) throws IOException {
-		super(manager);
-		dao = new RoomTypeDao(manager);
+	public RoomTypeBll() throws IOException {
+		super();
+		dao = new RoomTypeDao();
 	}
 
 	public RoomType select(final String code) {

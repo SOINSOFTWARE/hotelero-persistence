@@ -7,7 +7,7 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.soinsoftware.hotelero.persistence.entity.Room;
+import com.soinsoftware.hotelero.persistence.entity.Tariff;
 
 /**
  * @author Carlos Rodriguez
@@ -15,37 +15,37 @@ import com.soinsoftware.hotelero.persistence.entity.Room;
  */
 @Transactional
 @SuppressWarnings("unchecked")
-public class RoomDao extends AbstractDataAccessibleObject<Room, Integer> {
+public class TariffDao extends AbstractDataAccessibleObject<Tariff, Integer> {
 
-	public RoomDao() throws IOException {
+	public TariffDao() throws IOException {
 		super();
 	}
 
 	@Override
-	public List<Room> selectAll() {
+	public List<Tariff> selectAll() {
 		final Criteria criteria = buildCriteria();
-		return (List<Room>) criteria.list();
+		return (List<Tariff>) criteria.list();
 	}
 
 	@Override
-	public List<Room> selectAll(boolean enabled) {
+	public List<Tariff> selectAll(final boolean enabled) {
 		final Criteria criteria = buildCriteriaWithEnabledRestriction(enabled);
-		return (List<Room>) criteria.list();
+		return (List<Tariff>) criteria.list();
 	}
 
 	@Override
-	public Room selectById(final Integer pk) {
-		return manager.find(Room.class, pk);
+	public Tariff selectById(final Integer pk) {
+		return manager.find(Tariff.class, pk);
 	}
 
 	@Override
 	public Criteria buildCriteria() {
 		final Session session = (Session) manager.getDelegate();
-		return session.createCriteria(Room.class);
+		return session.createCriteria(Tariff.class);
 	}
 
-	public Room select(final String name) {
+	public Tariff select(final String code) {
 		final Session session = (Session) manager.getDelegate();
-		return session.bySimpleNaturalId(Room.class).load(name);
+		return session.bySimpleNaturalId(Tariff.class).load(code);
 	}
 }

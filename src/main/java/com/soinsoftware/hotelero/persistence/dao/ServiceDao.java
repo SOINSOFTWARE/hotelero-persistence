@@ -1,13 +1,13 @@
 package com.soinsoftware.hotelero.persistence.dao;
 
+import java.io.IOException;
 import java.util.List;
-
-import javax.persistence.EntityManager;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.soinsoftware.hotelero.persistence.entity.Service;
 import com.soinsoftware.hotelero.persistence.entity.ServiceType;
@@ -16,11 +16,12 @@ import com.soinsoftware.hotelero.persistence.entity.ServiceType;
  * @author Carlos Rodriguez
  * @since 1.0.0
  */
+@Transactional
 @SuppressWarnings("unchecked")
 public class ServiceDao extends AbstractDataAccessibleObject<Service, Integer> {
 
-	public ServiceDao(final EntityManager manager) {
-		super(manager);
+	public ServiceDao() throws IOException {
+		super();
 	}
 
 	@Override
