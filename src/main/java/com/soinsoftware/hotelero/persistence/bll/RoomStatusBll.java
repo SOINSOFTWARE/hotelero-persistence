@@ -11,6 +11,12 @@ import com.soinsoftware.hotelero.persistence.entity.RoomStatus;
  */
 public class RoomStatusBll extends AbstractBll<RoomStatus, Integer> {
 
+	private static final String ROOM_STATUS_ENABLED = "Disponible";
+
+	private static final String ROOM_STATUS_DISABLED = "Ocupado";
+
+	private static final String ROOM_STATUS_BOOKED = "Reservado";
+
 	public RoomStatusBll() throws IOException {
 		super();
 		dao = new RoomStatusDao();
@@ -18,5 +24,17 @@ public class RoomStatusBll extends AbstractBll<RoomStatus, Integer> {
 
 	public RoomStatus select(final String name) {
 		return ((RoomStatusDao) dao).select(name);
+	}
+
+	public RoomStatus selectRoomStatusEnabled() {
+		return select(ROOM_STATUS_ENABLED);
+	}
+
+	public RoomStatus selectRoomStatusDisabled() {
+		return select(ROOM_STATUS_DISABLED);
+	}
+
+	public RoomStatus selectRoomStatusBooked() {
+		return select(ROOM_STATUS_BOOKED);
 	}
 }
