@@ -28,7 +28,7 @@ import lombok.EqualsAndHashCode;
 @OptimisticLocking(type = OptimisticLockType.DIRTY)
 @DynamicUpdate
 @SelectBeforeUpdate
-public class Invoiceitem extends CommonData implements Comparable<Invoiceitem> {
+public class InvoiceItem extends CommonData implements Comparable<InvoiceItem> {
 
 	private static final long serialVersionUID = -489119310949259201L;
 
@@ -52,11 +52,11 @@ public class Invoiceitem extends CommonData implements Comparable<Invoiceitem> {
 	@Transient
 	private boolean delete;
 
-	public Invoiceitem() {
+	public InvoiceItem() {
 		super();
 	}
 
-	public Invoiceitem(final Invoice invoice, final Service service, final int quantity, final long unitvalue,
+	public InvoiceItem(final Invoice invoice, final Service service, final int quantity, final long unitvalue,
 			final long value, final Date invoiceitemdate, final Date creation, final Date updated,
 			final boolean enabled) {
 		super(creation, updated, enabled);
@@ -70,7 +70,7 @@ public class Invoiceitem extends CommonData implements Comparable<Invoiceitem> {
 	}
 
 	@Override
-	public int compareTo(final Invoiceitem other) {
+	public int compareTo(final InvoiceItem other) {
 		final Date firstDate = (this.invoiceitemdate != null) ? this.invoiceitemdate : new Date();
 		final Date secondDate = (other.invoiceitemdate != null) ? other.invoiceitemdate : new Date();
 		return firstDate.compareTo(secondDate);

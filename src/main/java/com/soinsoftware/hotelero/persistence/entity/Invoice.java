@@ -80,7 +80,7 @@ public class Invoice extends CommonData implements Comparable<Invoice> {
 	@OneToMany(fetch = FetchType.LAZY)
 	@Cascade(org.hibernate.annotations.CascadeType.ALL)
 	@IndexedEmbedded(prefix = "invoiceitem.idinvoice")
-	private Set<Invoiceitem> invoiceItems;
+	private Set<InvoiceItem> invoiceItems;
 
 	@Transient
 	private boolean delete;
@@ -106,7 +106,7 @@ public class Invoice extends CommonData implements Comparable<Invoice> {
 	public Invoice(final Company company, final InvoiceStatus invoiceStatus, final Room room,
 			final RoomStatus roomStatus, final User user, final Date initialDate, final Date finalDate,
 			final long value, final String siteFrom, final String siteTo, final Date creation, final Date updated,
-			final boolean enabled, final Set<Invoiceitem> invoiceItems) {
+			final boolean enabled, final Set<InvoiceItem> invoiceItems) {
 		super(creation, updated, enabled);
 		this.company = company;
 		this.invoiceStatus = invoiceStatus;
