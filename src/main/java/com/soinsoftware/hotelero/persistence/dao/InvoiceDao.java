@@ -13,6 +13,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.soinsoftware.hotelero.persistence.entity.Company;
+import com.soinsoftware.hotelero.persistence.entity.Hotel;
 import com.soinsoftware.hotelero.persistence.entity.Invoice;
 import com.soinsoftware.hotelero.persistence.entity.InvoiceStatus;
 import com.soinsoftware.hotelero.persistence.entity.RoomStatus;
@@ -58,14 +59,14 @@ public class InvoiceDao extends AbstractDataAccessibleObject<Invoice, Integer> {
 		criteria.add(criterion);
 		return criteria.list();
 	}
-	
+
 	public List<Invoice> selectByStatus(final RoomStatus roomStatus, final Date initialDate) {
 		final Criteria criteria = buildCriteria();
 		final Criterion criterion = buildCriterion(roomStatus, initialDate);
 		criteria.add(criterion);
 		return criteria.list();
 	}
-	
+
 	public List<Invoice> selectByNonStatus(final RoomStatus roomStatus, final Date initialDate, final Date finalDate) {
 		final Criteria criteria = buildCriteria();
 		final Criterion criterion = buildCriterion(roomStatus, initialDate, finalDate);
@@ -93,6 +94,15 @@ public class InvoiceDao extends AbstractDataAccessibleObject<Invoice, Integer> {
 		final Criteria criteria = buildCriteria();
 		final Criterion criterion = buildCriterion(roomStatus, year, month, invoiceStatus, company);
 		criteria.add(criterion);
+		return criteria.list();
+	}
+
+	public List<Invoice> select(final Hotel hotel) {
+		final Criteria criteria = buildCriteria();
+		final List<Criterion> predicates = new ArrayList<>();
+		predicates.add(Restrictions.eq("enabled", true));
+		predicates.add(Restrictions.eq("hotel", hotel));
+		criteria.add(Restrictions.and(buildPredicates(predicates)));
 		return criteria.list();
 	}
 

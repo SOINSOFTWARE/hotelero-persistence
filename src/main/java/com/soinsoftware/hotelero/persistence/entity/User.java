@@ -47,29 +47,34 @@ public class User extends CommonData {
 	@JoinColumn(name = "idcompany")
 	private Company company;
 
+	@ManyToOne
+	@JoinColumn(name = "idhotel")
+	private Hotel hotel;
+
 	public User() {
 		super();
 	}
 
 	public User(final long identification, final String name, final long phone, final Date creation, final Date updated,
-			final boolean enabled) {
+			final boolean enabled, final Hotel hotel) {
 		super(creation, updated, enabled);
 		this.identification = identification;
 		this.name = name;
 		this.phone = phone;
+		this.hotel = hotel;
 	}
 
 	public User(final Company company, final long identification, final String name, final long phone,
-			final String career, final Date creation, final Date updated, final boolean enabled) {
-		this(identification, name, phone, creation, updated, enabled);
+			final String career, final Date creation, final Date updated, final boolean enabled, final Hotel hotel) {
+		this(identification, name, phone, creation, updated, enabled, hotel);
 		this.company = company;
 		this.career = career;
 	}
 
 	public User(final Company company, final long identification, final String name, final String login,
 			final String password, final long phone, final String career, final Date creation, final Date updated,
-			final boolean enabled) {
-		this(company, identification, name, phone, career, creation, updated, enabled);
+			final boolean enabled, final Hotel hotel) {
+		this(company, identification, name, phone, career, creation, updated, enabled, hotel);
 		this.login = login;
 		this.password = password;
 	}

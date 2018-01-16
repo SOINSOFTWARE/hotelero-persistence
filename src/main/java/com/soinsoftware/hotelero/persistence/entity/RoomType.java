@@ -1,16 +1,18 @@
 package com.soinsoftware.hotelero.persistence.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
-
-import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.OptimisticLockType;
 import org.hibernate.annotations.OptimisticLocking;
 import org.hibernate.annotations.SelectBeforeUpdate;
+
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * @author Carlos Rodriguez
@@ -30,7 +32,7 @@ public class RoomType extends CommonData implements Comparable<RoomType> {
 	private String code;
 
 	private String name;
-	
+
 	@Transient
 	private String newCode;
 
@@ -40,14 +42,19 @@ public class RoomType extends CommonData implements Comparable<RoomType> {
 	@Transient
 	private boolean delete;
 
+	@ManyToOne
+	@JoinColumn(name = "idhotel")
+	private Hotel hotel;
+
 	public RoomType() {
 		super();
 	}
 
-	public RoomType(final String code, final String name) {
+	public RoomType(final String code, final String name, final Hotel hotel) {
 		super();
 		this.code = code;
 		this.name = name;
+		this.hotel = hotel;
 		this.setEnabled(true);
 	}
 

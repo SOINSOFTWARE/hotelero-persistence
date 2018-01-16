@@ -3,6 +3,8 @@ package com.soinsoftware.hotelero.persistence.entity;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 
 import org.hibernate.annotations.DynamicUpdate;
@@ -33,6 +35,10 @@ public class Company extends CommonData implements Comparable<Company> {
 
 	private String nit;
 
+	@ManyToOne
+	@JoinColumn(name = "idhotel")
+	private Hotel hotel;
+
 	@Transient
 	private String newName;
 
@@ -47,10 +53,11 @@ public class Company extends CommonData implements Comparable<Company> {
 	}
 
 	public Company(final String name, final String nit, final Date creation, final Date updated,
-			final boolean enabled) {
+			final boolean enabled, final Hotel hotel) {
 		super(creation, updated, enabled);
 		this.name = name;
 		this.nit = nit;
+		this.hotel = hotel;
 	}
 
 	@Override

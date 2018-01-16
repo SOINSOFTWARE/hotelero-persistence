@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import com.soinsoftware.hotelero.persistence.dao.ServiceDao;
+import com.soinsoftware.hotelero.persistence.entity.Hotel;
 import com.soinsoftware.hotelero.persistence.entity.Service;
 import com.soinsoftware.hotelero.persistence.entity.ServiceType;
 
@@ -24,5 +25,9 @@ public class ServiceBll extends AbstractBll<Service, Integer> {
 
 	public List<Service> selectByServiceType(final ServiceType serviceType) {
 		return ((ServiceDao) dao).selectByServiceType(serviceType);
+	}
+
+	public List<Service> select(final Hotel hotel) {
+		return ((ServiceDao) dao).select(hotel);
 	}
 }

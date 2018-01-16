@@ -2,6 +2,9 @@ package com.soinsoftware.hotelero.persistence.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.NaturalId;
@@ -31,9 +34,22 @@ public class Tariff extends CommonData {
 	private String code;
 
 	private String name;
-	
+
 	@Column(name = "mintariff")
 	private double minTariff;
-	
+
 	private double tariff;
+
+	@ManyToOne
+	@JoinColumn(name = "idhotel")
+	private Hotel hotel;
+
+	@Transient
+	private String newcode;
+
+	@Transient
+	private String newName;
+
+	@Transient
+	private boolean delete;
 }

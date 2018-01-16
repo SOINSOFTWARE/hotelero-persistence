@@ -40,6 +40,10 @@ public class Service extends CommonData implements Comparable<Service> {
 	@JoinColumn(name = "idservicetype")
 	private ServiceType serviceType;
 
+	@ManyToOne
+	@JoinColumn(name = "idhotel")
+	private Hotel hotel;
+
 	@Transient
 	private String newName;
 
@@ -54,12 +58,13 @@ public class Service extends CommonData implements Comparable<Service> {
 	}
 
 	public Service(final ServiceType serviceType, final String name, final long value, final Date creation,
-			final Date updated, final boolean enabled) {
+			final Date updated, final boolean enabled, final Hotel hotel) {
 		super(creation, updated, enabled);
 		this.serviceType = serviceType;
 		this.name = name;
 		this.value = value;
 		this.delete = false;
+		this.hotel = hotel;
 	}
 
 	@Override

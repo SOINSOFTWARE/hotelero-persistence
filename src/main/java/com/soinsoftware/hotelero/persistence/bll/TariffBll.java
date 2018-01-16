@@ -1,8 +1,10 @@
 package com.soinsoftware.hotelero.persistence.bll;
 
 import java.io.IOException;
+import java.util.List;
 
 import com.soinsoftware.hotelero.persistence.dao.TariffDao;
+import com.soinsoftware.hotelero.persistence.entity.Hotel;
 import com.soinsoftware.hotelero.persistence.entity.Tariff;
 
 /**
@@ -18,5 +20,9 @@ public class TariffBll extends AbstractBll<Tariff, Integer> {
 
 	public Tariff select(final String code) {
 		return ((TariffDao) dao).select(code);
+	}
+
+	public List<Tariff> select(final Hotel hotel) {
+		return ((TariffDao) dao).select(hotel);
 	}
 }

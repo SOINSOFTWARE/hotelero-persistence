@@ -10,6 +10,7 @@ import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.soinsoftware.hotelero.persistence.entity.Hotel;
 import com.soinsoftware.hotelero.persistence.entity.User;
 
 /**
@@ -60,5 +61,14 @@ public class UserDao extends AbstractDataAccessibleObject<User, Integer> {
 		final Criterion criterion = Restrictions.and(buildPredicates(predicates));
 		criteria.add(criterion);
 		return (User) criteria.uniqueResult();
+	}
+
+	public List<User> select(final Hotel hotel) {
+		final Criteria criteria = buildCriteria();
+		final List<Criterion> predicates = new ArrayList<>();
+		predicates.add(Restrictions.eq("enabled", true));
+		predicates.add(Restrictions.eq("hotel", hotel));
+		criteria.add(Restrictions.and(buildPredicates(predicates)));
+		return criteria.list();
 	}
 }

@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.soinsoftware.hotelero.persistence.dao.InvoiceDao;
 import com.soinsoftware.hotelero.persistence.entity.Company;
+import com.soinsoftware.hotelero.persistence.entity.Hotel;
 import com.soinsoftware.hotelero.persistence.entity.Invoice;
 import com.soinsoftware.hotelero.persistence.entity.InvoiceStatus;
 import com.soinsoftware.hotelero.persistence.entity.RoomStatus;
@@ -20,7 +21,7 @@ public class InvoiceBll extends AbstractBll<Invoice, Integer> {
 		super();
 		dao = new InvoiceDao();
 	}
-	
+
 	public List<Invoice> selectByNonStatus(final RoomStatus roomStatus, final Date initialDate, final Date finalDate) {
 		return ((InvoiceDao) dao).selectByNonStatus(roomStatus, initialDate, finalDate);
 	}
@@ -28,7 +29,7 @@ public class InvoiceBll extends AbstractBll<Invoice, Integer> {
 	public List<Invoice> selectByStatus(final RoomStatus roomStatus) {
 		return ((InvoiceDao) dao).selectByStatus(roomStatus);
 	}
-	
+
 	public List<Invoice> selectByStatus(final RoomStatus roomStatus, final Date initialDate) {
 		return ((InvoiceDao) dao).selectByStatus(roomStatus, initialDate);
 	}
@@ -45,5 +46,9 @@ public class InvoiceBll extends AbstractBll<Invoice, Integer> {
 	public List<Invoice> selectByStatus(final RoomStatus roomStatus, final int year, final int month,
 			final InvoiceStatus invoiceStatus, final Company company) {
 		return ((InvoiceDao) dao).selectByStatus(roomStatus, year, month, invoiceStatus, company);
+	}
+
+	public List<Invoice> select(final Hotel hotel) {
+		return ((InvoiceDao) dao).select(hotel);
 	}
 }

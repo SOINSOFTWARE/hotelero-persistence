@@ -1,12 +1,15 @@
 package com.soinsoftware.hotelero.test.persistence.bll;
 
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import com.soinsoftware.hotelero.persistence.bll.AbstractBll;
+import com.soinsoftware.hotelero.persistence.bll.HotelBll;
 import com.soinsoftware.hotelero.persistence.bll.InvoiceBll;
 import com.soinsoftware.hotelero.persistence.entity.Company;
+import com.soinsoftware.hotelero.persistence.entity.Hotel;
 import com.soinsoftware.hotelero.persistence.entity.Invoice;
 import com.soinsoftware.hotelero.persistence.entity.InvoiceStatus;
 import com.soinsoftware.hotelero.persistence.entity.RoomStatus;
@@ -135,7 +138,7 @@ public class InvoiceTest extends TestCase {
 		assertNotNull(entities);
 		assertSame(entities.size(), 0);
 	}
-	
+
 	public void testSelectByNonStatusAndInitDateAndFinDateExists() {
 		final RoomStatus roomStatus = new RoomStatus();
 		roomStatus.setId(1);
@@ -145,7 +148,7 @@ public class InvoiceTest extends TestCase {
 		assertNotNull(entities);
 		assertNotSame(entities.size(), 0);
 	}
-	
+
 	public void testSelectByNonStatusAndInitDateAndFinDateOutsideRangeExists() {
 		final RoomStatus roomStatus = new RoomStatus();
 		roomStatus.setId(1);
@@ -155,7 +158,7 @@ public class InvoiceTest extends TestCase {
 		assertNotNull(entities);
 		assertNotSame(entities.size(), 0);
 	}
-	
+
 	public void testSelectByNonStatusAndInitDateAndFinDateNonExists() {
 		final RoomStatus roomStatus = new RoomStatus();
 		roomStatus.setId(1);
@@ -164,6 +167,18 @@ public class InvoiceTest extends TestCase {
 		final List<Invoice> entities = ((InvoiceBll) bll).selectByNonStatus(roomStatus, initDate, finDate);
 		assertNotNull(entities);
 		assertSame(entities.size(), 0);
+	}
+
+	public void testSelectByHotel() throws IOException {
+		final Hotel hotel = selectHotel();
+		final List<Invoice> entities = ((InvoiceBll) bll).select(hotel);
+		assertNotNull(entities);
+		assertNotSame(entities.size(), 0);
+	}
+
+	private Hotel selectHotel() throws IOException {
+		final HotelBll bll = new HotelBll();
+		return ((HotelBll) bll).select("123456789-1");
 	}
 
 	private Date buildDate(final int year, final int month, final int date) {

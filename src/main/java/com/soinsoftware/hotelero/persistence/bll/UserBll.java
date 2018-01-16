@@ -1,8 +1,10 @@
 package com.soinsoftware.hotelero.persistence.bll;
 
 import java.io.IOException;
+import java.util.List;
 
 import com.soinsoftware.hotelero.persistence.dao.UserDao;
+import com.soinsoftware.hotelero.persistence.entity.Hotel;
 import com.soinsoftware.hotelero.persistence.entity.User;
 
 /**
@@ -22,5 +24,9 @@ public class UserBll extends AbstractBll<User, Integer> {
 
 	public User select(final String login, final String password) {
 		return ((UserDao) dao).select(login, password);
+	}
+
+	public List<User> select(final Hotel hotel) {
+		return ((UserDao) dao).select(hotel);
 	}
 }

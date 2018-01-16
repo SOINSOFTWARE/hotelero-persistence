@@ -1,6 +1,7 @@
 package com.soinsoftware.hotelero.persistence.dao;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -9,6 +10,7 @@ import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.soinsoftware.hotelero.persistence.entity.Hotel;
 import com.soinsoftware.hotelero.persistence.entity.Service;
 import com.soinsoftware.hotelero.persistence.entity.ServiceType;
 
@@ -46,7 +48,7 @@ public class ServiceDao extends AbstractDataAccessibleObject<Service, Integer> {
 		final Session session = (Session) manager.getDelegate();
 		return session.createCriteria(Service.class);
 	}
-	
+
 	public Service select(final String name) {
 		final Session session = (Session) manager.getDelegate();
 		return session.bySimpleNaturalId(Service.class).load(name);
@@ -58,6 +60,15 @@ public class ServiceDao extends AbstractDataAccessibleObject<Service, Integer> {
 		final Criterion enabledCr = Restrictions.eq("enabled", true);
 		final Criterion criterion = Restrictions.and(lessCr, enabledCr);
 		criteria.add(criterion);
-		return (List<Service>) criteria.list();
+		return criteria.list();
+	}
+
+	public List<Service> select(final Hotel hotel) {
+		final Criteria criteria = buildCriteria();
+		final List<Criterion> predicates = new ArrayList<>();
+		predicates.add(Restrictions.eq("enabled", true));
+		predicates.add(Restrictions.eq("hotel", hotel));
+		criteria.add(Restrictions.and(buildPredicates(predicates)));
+		return criteria.list();
 	}
 }

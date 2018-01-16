@@ -82,6 +82,10 @@ public class Invoice extends CommonData implements Comparable<Invoice> {
 	@IndexedEmbedded(prefix = "invoiceitem.idinvoice")
 	private Set<InvoiceItem> invoiceItems;
 
+	@ManyToOne
+	@JoinColumn(name = "idhotel")
+	private Hotel hotel;
+
 	@Transient
 	private boolean delete;
 
@@ -91,7 +95,8 @@ public class Invoice extends CommonData implements Comparable<Invoice> {
 	}
 
 	public Invoice(final InvoiceStatus invoiceStatus, final Room room, final RoomStatus roomStatus, final User user,
-			final Date initialDate, final long value, final Date creation, final Date updated, final boolean enabled) {
+			final Date initialDate, final long value, final Date creation, final Date updated, final boolean enabled,
+			final Hotel hotel) {
 		super(creation, updated, enabled);
 		this.invoiceStatus = invoiceStatus;
 		this.room = room;
@@ -101,12 +106,13 @@ public class Invoice extends CommonData implements Comparable<Invoice> {
 		this.value = value;
 		this.invoiceItems = new HashSet<>(0);
 		this.delete = false;
+		this.hotel = hotel;
 	}
 
 	public Invoice(final Company company, final InvoiceStatus invoiceStatus, final Room room,
 			final RoomStatus roomStatus, final User user, final Date initialDate, final Date finalDate,
 			final long value, final String siteFrom, final String siteTo, final Date creation, final Date updated,
-			final boolean enabled, final Set<InvoiceItem> invoiceItems) {
+			final boolean enabled, final Set<InvoiceItem> invoiceItems, final Hotel hotel) {
 		super(creation, updated, enabled);
 		this.company = company;
 		this.invoiceStatus = invoiceStatus;
@@ -120,6 +126,7 @@ public class Invoice extends CommonData implements Comparable<Invoice> {
 		this.siteTo = siteTo;
 		this.invoiceItems = invoiceItems;
 		this.delete = false;
+		this.hotel = hotel;
 	}
 
 	@Override

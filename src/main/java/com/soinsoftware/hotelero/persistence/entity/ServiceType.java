@@ -3,6 +3,8 @@ package com.soinsoftware.hotelero.persistence.entity;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 
 import org.hibernate.annotations.DynamicUpdate;
@@ -32,6 +34,10 @@ public class ServiceType extends CommonData implements Comparable<ServiceType> {
 	@NaturalId
 	private String name;
 
+	@ManyToOne
+	@JoinColumn(name = "idhotel")
+	private Hotel hotel;
+
 	@Transient
 	private String newName;
 
@@ -42,10 +48,12 @@ public class ServiceType extends CommonData implements Comparable<ServiceType> {
 		super();
 	}
 
-	public ServiceType(final String name, final Date creation, final Date updated, final boolean enabled) {
+	public ServiceType(final String name, final Date creation, final Date updated, final boolean enabled,
+			final Hotel hotel) {
 		super(creation, updated, enabled);
 		this.name = name;
 		this.delete = false;
+		this.hotel = hotel;
 	}
 
 	@Override

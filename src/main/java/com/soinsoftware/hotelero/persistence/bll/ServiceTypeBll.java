@@ -1,8 +1,10 @@
 package com.soinsoftware.hotelero.persistence.bll;
 
 import java.io.IOException;
+import java.util.List;
 
 import com.soinsoftware.hotelero.persistence.dao.ServiceTypeDao;
+import com.soinsoftware.hotelero.persistence.entity.Hotel;
 import com.soinsoftware.hotelero.persistence.entity.ServiceType;
 
 /**
@@ -18,5 +20,9 @@ public class ServiceTypeBll extends AbstractBll<ServiceType, Integer> {
 
 	public ServiceType select(final String name) {
 		return ((ServiceTypeDao) dao).select(name);
+	}
+
+	public List<ServiceType> select(final Hotel hotel) {
+		return ((ServiceTypeDao) dao).select(hotel);
 	}
 }

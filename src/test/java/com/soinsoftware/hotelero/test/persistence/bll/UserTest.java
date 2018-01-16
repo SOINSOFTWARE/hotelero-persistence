@@ -1,9 +1,12 @@
 package com.soinsoftware.hotelero.test.persistence.bll;
 
+import java.io.IOException;
 import java.util.List;
 
 import com.soinsoftware.hotelero.persistence.bll.AbstractBll;
+import com.soinsoftware.hotelero.persistence.bll.HotelBll;
 import com.soinsoftware.hotelero.persistence.bll.UserBll;
+import com.soinsoftware.hotelero.persistence.entity.Hotel;
 import com.soinsoftware.hotelero.persistence.entity.User;
 import com.soinsoftware.hotelero.persistence.manager.HoteleroManagerFactory;
 
@@ -55,5 +58,17 @@ public class UserTest extends TestCase {
 	public void testSelectByLoginNotExists() {
 		final User entity = ((UserBll) bll).select("admin", "xxxxxx");
 		assertNull(entity);
+	}
+
+	public void testSelectByHotel() throws IOException {
+		final Hotel hotel = selectHotel();
+		final List<User> entities = ((UserBll) bll).select(hotel);
+		assertNotNull(entities);
+		assertNotSame(entities.size(), 0);
+	}
+
+	private Hotel selectHotel() throws IOException {
+		final HotelBll bll = new HotelBll();
+		return ((HotelBll) bll).select("123456789-1");
 	}
 }

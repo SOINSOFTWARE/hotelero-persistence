@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.NaturalId;
@@ -31,7 +32,7 @@ public class Room extends CommonData implements Comparable<Room> {
 
 	@NaturalId
 	private String code;
-	
+
 	private String name;
 
 	@ManyToOne
@@ -42,13 +43,27 @@ public class Room extends CommonData implements Comparable<Room> {
 	@JoinColumn(name = "idroomtype")
 	private RoomType roomType;
 
+	@ManyToOne
+	@JoinColumn(name = "idhotel")
+	private Hotel hotel;
+
+	@Transient
+	private String newCode;
+
+	@Transient
+	private String newName;
+
+	@Transient
+	private boolean delete;
+
 	public Room() {
 		super();
 	}
 
-	public Room(final String name, final Date creation, final Date updated, final boolean enabled) {
+	public Room(final String name, final Date creation, final Date updated, final boolean enabled, final Hotel hotel) {
 		super(creation, updated, enabled);
 		this.name = name;
+		this.hotel = hotel;
 	}
 
 	@Override
