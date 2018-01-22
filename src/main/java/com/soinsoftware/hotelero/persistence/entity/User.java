@@ -50,6 +50,10 @@ public class User extends CommonData {
 	@ManyToOne
 	@JoinColumn(name = "idhotel")
 	private Hotel hotel;
+	
+	@ManyToOne
+	@JoinColumn(name = "idrole")
+	private Role role;
 
 	public User() {
 		super();
