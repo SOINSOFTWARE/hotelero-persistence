@@ -19,10 +19,6 @@ public class RoleAccessBll extends AbstractBll<RoleAccess, BigInteger> {
 		dao = new RoleAccessDao();
 	}
 
-	public RoleAccess select(final String name) {
-		return ((RoleAccessDao) dao).select(name);
-	}
-
 	public List<RoleAccess> select(final Role role) {
 		return ((RoleAccessDao) dao).select(role);
 	}

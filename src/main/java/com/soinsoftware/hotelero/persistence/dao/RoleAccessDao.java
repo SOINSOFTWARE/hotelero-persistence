@@ -49,11 +49,6 @@ public class RoleAccessDao extends AbstractDataAccessibleObject<RoleAccess, BigI
 		return session.createCriteria(RoleAccess.class);
 	}
 
-	public RoleAccess select(final String name) {
-		final Session session = (Session) manager.getDelegate();
-		return session.bySimpleNaturalId(RoleAccess.class).load(name);
-	}
-
 	public List<RoleAccess> select(final Role role) {
 		final Criteria criteria = buildCriteria();
 		final List<Criterion> predicates = new ArrayList<>();
